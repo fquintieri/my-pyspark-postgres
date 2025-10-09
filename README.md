@@ -32,7 +32,7 @@ O ambiente provisionado inclui as seguintes ferramentas:
 
 ---
 
-## 🛠️ Guia de Utilização
+## Guia de Utilização
 
 Para utilizar este ambiente, siga os passos abaixo.
 
