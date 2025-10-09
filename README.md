@@ -101,6 +101,52 @@ A execução bem-sucedida de todos os scripts confirma que o ambiente está conf
 
 ---
 
+## Salvando e Enviando Alterações para o GitHub (Fluxo Básico do Git)
+
+Após modificar ou criar arquivos, você precisa salvar seu progresso no GitHub. Este é o ciclo padrão que você usará repetidamente.
+
+### Passo 1: Verificar o Status das Alterações
+
+Antes de tudo, veja o que você modificou. Este comando lista todos os arquivos novos, modificados ou deletados.
+
+```bash
+git status
+```
+
+### Passo 2: Adicionar as Alterações para "Empacotamento"
+
+Adicione os arquivos que você deseja salvar ao "pacote" (Staging Area).
+
+```bash
+# Para adicionar TODOS os arquivos modificados e novos
+git add .
+
+# Ou, para adicionar um arquivo específico
+git add src/seu_novo_arquivo.py
+```
+
+### Passo 3: Criar um "Pacote" de Salvamento (Commit)
+
+Crie um ponto na história do projeto com as alterações que você adicionou. **É crucial escrever uma mensagem clara** que descreva o que você fez.
+
+```bash
+git commit -m "Sua mensagem descritiva aqui"
+
+# Exemplo:
+# git commit -m "Adiciona script para calcular vendas mensais"
+```
+
+### Passo 4: Enviar as Alterações para o GitHub
+
+Envie o seu "pacote" (commit) para o seu repositório remoto no GitHub, atualizando o projeto na nuvem.
+
+```bash
+git push
+```
+O ciclo completo é: **`status` → `add` → `commit` → `push`**.
+
+---
+
 ## Gerenciamento do Codespace
 
 ### Renomeando um Codespace
