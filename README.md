@@ -101,6 +101,46 @@ A execução bem-sucedida de todos os scripts confirma que o ambiente está conf
 
 ---
 
+## Gerenciamento do Codespace
+
+### Renomeando um Codespace
+
+Por padrão, o GitHub gera nomes aleatórios para os Codespaces (ex: `fictional-space-engine-g45pr7q7wxf6p7r`), o que pode dificultar a identificação se você tiver vários. É uma boa prática renomeá-los para algo mais descritivo.
+
+1.  Acesse a sua lista de Codespaces em: **[github.com/codespaces](https://github.com/codespaces)**.
+2.  Encontre o Codespace que deseja renomear e clique no menu de três pontos (`...`).
+3.  Selecione a opção **"Rename"** (Renomear) e insira o novo nome.
+
+### Conectando ao Banco de Dados PostgreSQL
+
+Você pode interagir diretamente com o banco de dados PostgreSQL de dentro do VS Code, sem precisar de ferramentas externas. Isso é possível graças a uma extensão que já vem pré-instalada neste ambiente.
+
+**Passo a Passo para Conectar e Executar uma Consulta:**
+
+1.  **Abra a Aba do Banco de Dados:**
+    * Na barra de atividades do lado esquerdo do VS Code, clique no ícone que parece um cilindro (banco de dados).
+    ![Ícone da Extensão de Banco de Dados](https://i.imgur.com/uGgH9R7.png)
+
+2.  **Crie uma Nova Conexão:**
+    * No painel da extensão, clique no ícone `+` para adicionar uma nova conexão.
+
+3.  **Preencha os Detalhes da Conexão:**
+    * Um formulário aparecerá. Preencha-o com as **exatas** credenciais definidas no arquivo `.devcontainer/docker-compose.yml`:
+        * **Host:** `db`  *(Este é o nome do serviço do Postgres no Docker Compose. **Não use `localhost`**)*.
+        * **User:** `myuser`
+        * **Password:** `mypassword`
+        * **Port:** `5432` *(padrão)*
+        * **Database:** `mydb`
+    * Clique no botão **"Connect"**.
+
+4.  **Explore e Consulte o Banco de Dados:**
+    * Se a conexão for bem-sucedida, você verá a conexão `db` listada no painel.
+    * Você pode expandi-la para ver seu banco de dados (`mydb`), schemas (como `public`) e tabelas (se houver alguma).
+    * Para executar uma consulta, clique com o botão direito na sua conexão ou no banco de dados e selecione **"New Query"**. Uma nova aba se abrirá.
+    * Digite um comando SQL (ex: `SELECT version();` ou `SELECT * FROM sua_tabela;`) e clique no botão **"Run"** (ou use o atalho `Ctrl+Alt+E`). Os resultados aparecerão em uma tabela na parte inferior.
+
+---
+
 ## Próximos Passos
 
 Com o ambiente funcional, as seguintes ações podem ser realizadas:
