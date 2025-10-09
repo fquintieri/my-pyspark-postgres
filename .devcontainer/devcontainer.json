@@ -1,53 +1,46 @@
 {
-  // "name": Define o nome que aparecerá na interface do VS Code e do GitHub Codespaces.
-  // É um nome amigável para você identificar facilmente o ambiente.
-  "name": "Python, Spark and PostgreSQL Environment",
+  // Define o nome amigável do ambiente que aparecerá na interface.
+  "name": "Python, Spark & PostgreSQL Environment",
 
-  // "dockerComposeFile": Esta é uma das configurações mais importantes.
-  // Ela informa ao Dev Container que a definição do ambiente não está em um único Dockerfile,
-  // mas sim em um arquivo Docker Compose, que pode orquestrar múltiplos containers (serviços).
-  // Neste caso, apontamos para o arquivo 'docker-compose.yml' que está na mesma pasta.
+  // Aponta para o arquivo que orquestra os múltiplos containers (app e db).
   "dockerComposeFile": "docker-compose.yml",
 
-  // "service": Como o arquivo Docker Compose pode definir vários serviços (ex: 'app' para Python e 'db' para Postgres),
-  // esta propriedade especifica em qual desses serviços o VS Code deve se "conectar".
-  // Nós queremos editar e rodar nosso código no container da aplicação, por isso escolhemos 'app'.
+  // Especifica em qual serviço do Docker Compose o VS Code deve se conectar.
   "service": "app",
 
-  // "workspaceFolder": Define qual pasta dentro do container será aberta como a raiz do projeto no VS Code.
-  // Como nosso 'docker-compose.yml' monta o código do projeto na pasta '/workspace',
-  // definimos o mesmo caminho aqui para que o editor abra no lugar certo.
+  // Define a pasta raiz que será aberta no VS Code dentro do container.
   "workspaceFolder": "/workspace",
 
-  // "customizations": Um bloco opcional, para personalizar o ambiente de desenvolvimento,
-  // especialmente o editor VS Code que será executado dentro do Codespace.
+  // Bloco para personalizações do ambiente, principalmente do editor VS Code.
   "customizations": {
-    // "vscode": Agrupa todas as personalizações específicas para o VS Code.
     "vscode": {
-      // "settings": Permite definir configurações padrão do VS Code para este projeto.
-      // Qualquer pessoa que abrir este Dev Container terá estas configurações aplicadas automaticamente.
+      // Configurações padrão do VS Code para este projeto.
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python", //Explicita à extensão do Python onde encontrar o executável do Python dentro do container.
-        "python.linting.pylintEnabled": true, //Hsbilita a verificação da lógica de negócio está correta, mas analisa seu código em tempo real
-        "python.linting.enabled": true //Especifica qual ferramenta de linting usar. Neste caso, estamos ativando o Pylint
+        // Aponta para o caminho exato do interpretador Python dentro do container.
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        // Habilita o Pylint como a ferramenta específica para análise de código.
+        "python.linting.pylintEnabled": true,
+        // É o interruptor GERAL que liga o recurso de linting (análise de código) para Python.
+        "python.linting.enabled": true
       },
-
-      // "extensions": Uma das funcionalidades mais úteis.
-      // Lista as extensões do VS Code que devem ser instaladas automaticamente
-      // quando o ambiente for criado. Garante que toda a equipe tenha as mesmas ferramentas.
+      // Lista de extensões do VS Code a serem instaladas automaticamente no ambiente.
       "extensions": [
-        "ms-python.python", // Extensão oficial da Microsoft para desenvolvimento Python (linting, debug, etc.).
-        "ms-azuretools.vscode-docker", // Útil para visualizar e gerenciar containers e imagens Docker.
-        "cweijan.vscode-postgresql-client2" // Um cliente de banco de dados para se conectar ao Postgres diretamente do VS Code.
+        "ms-python.python",
+        "ms-azuretools.vscode-docker",
+        "cweijan.vscode-postgresql-client2"
       ]
     }
   },
 
-  // "postCreateCommand": Executa um comando no terminal do container DEPOIS que ele foi criado e o VS Code se conectou.
-  // É ideal para tarefas de inicialização, como instalar dependências de um projeto.
-  // Neste exemplo, ele executa 'pip install' usando o 'requirements.txt' que está na raiz do projeto.
-  // Nota: Muitas vezes a instalação de dependências é feita no Dockerfile, mas esta é uma alternativa útil.
+  // Comando a ser executado no terminal DEPOIS que o container for criado.
+  // Ideal para instalar dependências.
   "postCreateCommand": "pip install -r requirements.txt",
 
-  // "forwardPorts": Se sua aplicação expõe portas (como uma API web), você pode listá-las aqui.
-  // O Codespaces irá encaminhar automaticamente
+  // Lista de portas do container que devem ser encaminhadas e acessíveis pelo navegador.
+  // Deixaremos vazia por enquanto.
+  "forwardPorts": [],
+
+  // Especifica com qual usuário os comandos dentro do container serão executados.
+  // 'vscode' é um usuário não-root, o que é uma boa prática de segurança.
+  "remoteUser": "vscode"
+}
