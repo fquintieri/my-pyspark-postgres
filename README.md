@@ -4,6 +4,26 @@ Este repositório fornece um ambiente de desenvolvimento pré-configurado para p
 
 ---
 
+## Sobre o Ambiente e a Tecnologia
+
+Este é um template de ambiente de desenvolvimento baseado na especificação **Dev Containers** e projetado para ser executado na plataforma **GitHub Codespaces**. Ele automatiza a criação de um ambiente de desenvolvimento conteinerizado que já inclui todas as ferramentas e dependências necessárias.
+
+### O que é um Dev Container?
+
+Um **Dev Container (ou Contêiner de Desenvolvimento)** é um ambiente de desenvolvimento completo que roda dentro de um contêiner Docker. Trata-se de um padrão de código aberto que permite definir todos os componentes de um ambiente como código.
+
+* **Como funciona?** Através de um arquivo de configuração (`.devcontainer/devcontainer.json`), você especifica tudo o que o projeto precisa: o sistema operacional base, versões de linguagens (Python, etc.), ferramentas, extensões do editor (VS Code) e configurações.
+* **Qual o benefício?** Ele resolve o clássico problema do "mas na minha máquina funciona". Como o ambiente é definido em código, qualquer pessoa que abrir o projeto terá um ambiente **idêntico, consistente e reproduzível**, garantindo que o código se comporte da mesma forma para todos.
+
+### O que é o GitHub Codespaces?
+
+O **GitHub Codespaces** é um produto da GitHub que oferece ambientes de desenvolvimento completos na nuvem. Pense nele como "Dev Containers como um Serviço".
+
+* **Como funciona?** O Codespaces lê a configuração do Dev Container (`.devcontainer/`) diretamente do seu repositório. Em seguida, ele utiliza essa configuração para construir e hospedar o seu ambiente em uma máquina virtual poderosa na nuvem. Você acessa este ambiente completo através do seu navegador, sem precisar instalar nada localmente.
+* **Qual o benefício?** Ele combina o poder da padronização dos Dev Containers com a flexibilidade da nuvem. Você pode programar de qualquer dispositivo, ter acesso a recursos computacionais robustos sob demanda e começar a trabalhar em um projeto novo em questão de minutos, com o ambiente já 100% configurado.
+
+---
+
 ## O que é este repositório?
 
 Este é um template de ambiente de desenvolvimento baseado na especificação **Dev Containers** e projetado para ser executado na plataforma **GitHub Codespaces**.
