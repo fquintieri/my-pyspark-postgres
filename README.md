@@ -119,7 +119,6 @@ Você pode interagir diretamente com o banco de dados PostgreSQL de dentro do VS
 
 1.  **Abra a Aba do Banco de Dados:**
     * Na barra de atividades do lado esquerdo do VS Code, clique no ícone que parece um cilindro (banco de dados).
-    ![Ícone da Extensão de Banco de Dados](https://i.imgur.com/uGgH9R7.png)
 
 2.  **Crie uma Nova Conexão:**
     * No painel da extensão, clique no ícone `+` para adicionar uma nova conexão.
