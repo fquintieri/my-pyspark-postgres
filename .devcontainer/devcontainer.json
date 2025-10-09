@@ -1,29 +1,15 @@
 {
-  // Define o nome amigável do ambiente que aparecerá na interface.
   "name": "Python, Spark & PostgreSQL Environment",
-
-  // Aponta para o arquivo que orquestra os múltiplos containers (app e db).
   "dockerComposeFile": "docker-compose.yml",
-
-  // Especifica em qual serviço do Docker Compose o VS Code deve se conectar.
   "service": "app",
-
-  // Define a pasta raiz que será aberta no VS Code dentro do container.
   "workspaceFolder": "/workspace",
-
-  // Bloco para personalizações do ambiente, principalmente do editor VS Code.
   "customizations": {
     "vscode": {
-      // Configurações padrão do VS Code para este projeto.
       "settings": {
-        // Aponta para o caminho exato do interpretador Python dentro do container.
         "python.defaultInterpreterPath": "/usr/local/bin/python",
-        // Habilita o Pylint como a ferramenta específica para análise de código.
         "python.linting.pylintEnabled": true,
-        // É o interruptor GERAL que liga o recurso de linting (análise de código) para Python.
         "python.linting.enabled": true
       },
-      // Lista de extensões do VS Code a serem instaladas automaticamente no ambiente.
       "extensions": [
         "ms-python.python",
         "ms-azuretools.vscode-docker",
@@ -31,16 +17,7 @@
       ]
     }
   },
-
-  // Comando a ser executado no terminal DEPOIS que o container for criado.
-  // Ideal para instalar dependências.
   "postCreateCommand": "pip install -r requirements.txt",
-
-  // Lista de portas do container que devem ser encaminhadas e acessíveis pelo navegador.
-  // Deixaremos vazia por enquanto.
   "forwardPorts": [],
-
-  // Especifica com qual usuário os comandos dentro do container serão executados.
-  // 'vscode' é um usuário não-root, o que é uma boa prática de segurança.
   "remoteUser": "vscode"
 }
