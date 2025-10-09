@@ -1,56 +1,24 @@
-# Define a versão da sintaxe do Docker Compose que estamos utilizando.
-# A versão '3.8' é moderna e suporta todas as funcionalidades que precisamos.
 version: '3.8'
 
-# A seção 'services' é o coração do arquivo. Aqui definimos cada um dos containers
-# que farão parte do nosso ambiente de desenvolvimento.
 services:
-  # 'app' é o nome que demos ao nosso serviço principal, o da aplicação Python.
-  # É neste container que o VS Code irá se conectar e onde vamos rodar nosso código.
   app:
-    # A instrução 'build' diz ao Docker Compose para construir uma imagem customizada
-    # para este serviço, em vez de usar uma pronta do Docker Hub.
     build:
-      # 'context: ..' define o contexto de construção. '..' significa o diretório pai,
-      # ou seja, a raiz do nosso projeto. Isso é crucial para que o Dockerfile possa
-      # acessar arquivos como o 'requirements.txt' que está na raiz.
       context: ..
-      # Especifica o caminho para o Dockerfile que será usado para construir a imagem.
       dockerfile: .devcontainer/Dockerfile
-    
-    # A seção 'volumes' é fundamental para a persistência e sincronização de arquivos.
     volumes:
-      # Esta linha cria um "bind mount". É o que faz a mágica acontecer:
-      # - '..': Pega a pasta raiz do projeto na sua máquina (ou no ambiente do Codespace).
-      # - ':/workspace': E a "espelha" para dentro do container na pasta '/workspace'.
-      # - ':cached': É uma otimização de desempenho para o compartilhamento de arquivos.
-      # O resultado é que qualquer alteração no seu código é refletida instantaneamente dentro do container.
       - ..:/workspace:cached
-      
-    # Este comando é um truque para manter o container 'app' rodando indefinidamente.
-    # Como o container de desenvolvimento não executa um servidor que o mantém ativo,
-    # ele sairia logo após iniciar. 'sleep infinity' garante que ele permaneça ativo
-    # para que o VS Code possa se manter conectado a ele.
     command: sleep infinity
-
-    # 'depends_on' controla a ordem de inicialização dos containers.
-    # Esta configuração garante que o serviço 'app' só será iniciado DEPOIS
-    # que o serviço 'db' estiver pronto. Isso evita que sua aplicação tente se
-    # conectar a um banco de dados que ainda não subiu.
     depends_on:
       - db
 
-  # 'db' é o nome que demos ao nosso serviço de banco de dados PostgreSQL.
-  # Este container rodará de forma isolada, mas na mesma rede que o 'app'.
   db:
-    # Ao contrário do 'app', aqui usamos uma imagem pronta e oficial do PostgreSQL
-    # diretamente do Docker Hub. É a maneira mais simples e segura de rodar serviços padrão.
-    # 'postgres:15' especifica que queremos a versão 15 do Postgres.
     image: postgres:15
-
-    # 'environment' permite definir variáveis de ambiente dentro do container.
-    # A imagem oficial do Postgres usa estas variáveis específicas para configurar
-    # o banco de dados na primeira vez que ele é iniciado.
     environment:
-      - POSTGRES_USER=myuser          # Cria um superusuário com este nome.
-      - POSTGRES_PASSWORD=m
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=mydb
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
