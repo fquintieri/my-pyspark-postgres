@@ -1,4 +1,4 @@
-# 🚀 Ambiente de Desenvolvimento com PySpark e PostgreSQL
+# Ambiente de Desenvolvimento com PySpark e PostgreSQL
 
 Este repositório fornece um ambiente de desenvolvimento pré-configurado para projetos que utilizam PySpark, Pandas e PostgreSQL. O objetivo principal é padronizar e acelerar a configuração do ambiente de trabalho através do uso de Dev Containers e GitHub Codespaces.
 
@@ -10,7 +10,7 @@ Este é um template de ambiente de desenvolvimento baseado na especificação **
 
 Ele automatiza a criação de um ambiente de desenvolvimento conteinerizado que já inclui todas as ferramentas e dependências necessárias para iniciar um projeto de dados.
 
-## ✅ Tecnologias Inclusas
+## Tecnologias Inclusas
 
 O ambiente provisionado inclui as seguintes ferramentas:
 
@@ -23,7 +23,7 @@ O ambiente provisionado inclui as seguintes ferramentas:
 
 ---
 
-## 💡 Principais Vantagens
+## Principais Vantagens
 
 * **Inicialização Rápida:** O ambiente fica pronto para uso em poucos minutos, eliminando a necessidade de instalações e configurações manuais.
 * **Consistência:** Garante que todos os usuários operem com a mesma configuração de software e dependências, prevenindo problemas de compatibilidade entre diferentes máquinas.
