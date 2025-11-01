@@ -14,6 +14,7 @@ services:
       - MINIO_SECRET_KEY=minioadmin
       - MINIO_BUCKET=mybucket # Bucket de exemplo
       - TZ=America/Sao_Paulo
+      - PYTHONPATH=/workspace/src
     command: sleep infinity
     depends_on:
       - db # Adiciona dependência do PostgreSQL
@@ -29,7 +30,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
       # qry/dbloja_full_build.sql (entra na pasta qry e seleciona o script)
-      - ../qry/dbloja_full_build.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../query/dbloja_full_build.sql:/docker-entrypoint-initdb.d/init.sql
     ports: # Expor a porta do DB internamente
       - "5432:5432"
     # ADICIONADO: Define o wal_level como 'logical' para permitir o CDC
