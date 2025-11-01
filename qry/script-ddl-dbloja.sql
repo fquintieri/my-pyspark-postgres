@@ -40,7 +40,7 @@ CREATE TABLE db_loja.produto (
     data_atualizacao TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Registra a última modificação do produto. Será atualizado automaticamente pelo Trigger.
    CONSTRAINT fk_categoria                 -- Nome da restrição.
         FOREIGN KEY(id_categoria)           -- Coluna nesta tabela.
-        REFERENCES db_loja.categorias_produtos(id) -- Tabela e coluna referenciadas.
+        REFERENCES db_loja.categorias_produto(id) -- Tabela e coluna referenciadas.
 );
 
 -- Tabela: clientes
@@ -63,7 +63,7 @@ CREATE TABLE db_loja.pedido_cabecalho (
     valor_total NUMERIC(10, 2) NOT NULL,    -- Valor total do pedido.
     CONSTRAINT fk_cliente
         FOREIGN KEY(id_cliente)
-        REFERENCES db_loja.clientes(id)
+        REFERENCES db_loja.cliente(id)
 );
 
 -- Tabela: pedido_itens
@@ -79,7 +79,7 @@ CREATE TABLE db_loja.pedido_itens (
         REFERENCES db_loja.pedido_cabecalho(id),
     CONSTRAINT fk_produto
         FOREIGN KEY(id_produto)
-        REFERENCES db_loja.produtos(id)
+        REFERENCES db_loja.produto(id)
 );
 
 
@@ -289,3 +289,27 @@ INSERT INTO db_loja.pedido_itens (id, id_pedido, id_produto, quantidade, preco_u
 (100, 91, 4, 1, 79.90), (101, 92, 8, 1, 179.90), (102, 93, 9, 1, 299.00), (103, 94, 5, 1, 399.90), (104, 95, 6, 1, 1499.00),
 (105, 96, 3, 1, 199.99), (106, 97, 2, 1, 7499.50), (107, 98, 10, 1, 1899.00), (108, 99, 1, 1, 299.90), (109, 100, 11, 1, 499.50),
 (110, 100, 12, 1, 34.90);
+
+
+--
+-- SEÇÃO 7: CONFIGURAÇÃO DE CHANGE DATA CAPTURE (CDC)
+--
+-- Esta seção final configura o banco de dados para a Replicação Lógica,
+-- que é a base do CDC no PostgreSQL.
+--
+
+-- 7.1. Conceder permissão de replicação ao usuário.
+-- O usuário 'myuser' é o mesmo definido no docker-compose.yml (POSTGRES_USER).
+-- Esta permissão é necessária para que ele possa criar "replication slots".
+ALTER USER myuser WITH REPLICATION;
+
+
+-- 7.2. Criar a Publicação para Logical Replication.
+-- Uma 'PUBLICATION' é como um "canal" que anuncia mudanças.
+-- Aqui, estamos publicando todas as alterações (INSERT, UPDATE, DELETE)
+-- para TODAS as tabelas que acabamos de criar no schema 'db_loja'.
+CREATE PUBLICATION db_loja_cdc_publication FOR ALL TABLES IN SCHEMA db_loja;
+
+-- NOTA: Se você quisesse apenas tabelas específicas, o comando seria, por exemplo:
+-- CREATE PUBLICATION db_loja_cdc_publication FOR TABLE db_loja.produto, db_loja.pedido_cabecalho;
+-- Mas para um caso de uso geral de "data lake", é comum capturar tudo.

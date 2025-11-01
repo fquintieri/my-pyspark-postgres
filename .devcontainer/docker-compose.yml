@@ -7,6 +7,8 @@ services:
       dockerfile: .devcontainer/Dockerfile
     volumes:
       - ..:/workspace:cached
+    # qry/script-ddl-dbloja.sql (entra na pasta qry e seleciona o script)
+      - ../qry/script-ddl-dbloja.sql:/docker-entrypoint-initdb.d/init.sql
     # Adiciona variáveis de ambiente para o app se conectar ao MinIO
     environment:
       - MINIO_ENDPOINT=minio:9000
@@ -15,7 +17,7 @@ services:
       - MINIO_BUCKET=mybucket # Bucket de exemplo
     command: sleep infinity
     depends_on:
-      - db
+      - db # Adiciona dependência do PostgreSQL
       - minio # Adiciona dependência do MinIO
 
   db:
@@ -26,8 +28,10 @@ services:
       - POSTGRES_DB=mydb
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    ports: # Boa prática expor a porta do DB internamente
+    ports: # Expor a porta do DB internamente
       - "5432:5432"
+    # ADICIONADO: Define o wal_level como 'logical' para permitir o CDC
+    command: postgres -c wal_level=logical
 
   # Novo serviço MinIO
   minio:
@@ -44,5 +48,5 @@ services:
     command: server /data --console-address ":9001"
 
 volumes:
-  postgres-data:
-  minio-data: # Adiciona o volume para o MinIO
+  postgres-data: # Volume para o MinIO
+  minio-data: # Volume para o MinIO
